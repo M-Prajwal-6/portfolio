@@ -45,9 +45,20 @@ if (roleEl) {
   typeRole();
 }
 
+// keep existing nav link behaviour
 document.querySelectorAll('.nav-links a').forEach((a) => {
   a.addEventListener('click', () => {
     const navCheck = document.getElementById('nav-check');
     if (navCheck) navCheck.checked = false;
   });
 });
+
+// prevent body scrolling while mobile nav is open and ensure nav is above content
+const _navCheck = document.getElementById('nav-check');
+if (_navCheck) {
+  _navCheck.addEventListener('change', () => {
+    document.body.style.overflow = _navCheck.checked ? 'hidden' : '';
+    const navLinks = document.getElementById('nav-links');
+    if (navLinks) navLinks.style.zIndex = _navCheck.checked ? '9999' : '';
+  });
+}
